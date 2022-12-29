@@ -8,7 +8,7 @@ export default function Checkout({cart, setCartItems, RemoveFromCart}) {
   const [totalPrice, setTotalPrice] = useState()
   const [paymentAmount, setPaymentAmount] = useState()
   const [gst, setGst] = useState()
-  const [proccessingPayment, setProccessingPayment] = useState(false)
+  const [processingPayment, setProcessingPayment] = useState(false)
   const [paid, setPaid] = useState(false)
   const firstName = useRef()
   const lastName = useRef()
@@ -39,6 +39,12 @@ export default function Checkout({cart, setCartItems, RemoveFromCart}) {
   }
 
   function ConfirmPayment() {
+
+    if(cart.length < 1) {
+      alert("You must have at least one item in your cart to make a purchase")
+      return
+    }
+
     const fName = firstName.current.value
     const lName = lastName.current.value
     const contactNumber = contactNum.current.value
@@ -57,12 +63,12 @@ export default function Checkout({cart, setCartItems, RemoveFromCart}) {
     setCartItems([])
     document.getElementById('cartEmpty').style.display = 'block'
     document.getElementById('checkoutBtn').style.display = 'none'
-    setProccessingPayment(true)
+    setProcessingPayment(true)
     setTimeout(DisplayReceipt, 3000)
   }
 
   function DisplayReceipt() {
-    setProccessingPayment(false)
+    setProcessingPayment(false)
     setPaid(true)
   }
 
@@ -161,11 +167,11 @@ export default function Checkout({cart, setCartItems, RemoveFromCart}) {
     }
   )
 
-  if(proccessingPayment) {
+  if(processingPayment) {
     return(
       <div className='loadingImgContainer'>
         <img src='images/LoadingImage.png' alt='' className='loadingImg rotate' />
-        <h1 className='loadingText'>Proccessing Payment...</h1>
+        <h1 className='loadingText'>Processing Payment...</h1>
       </div>
     )
   }

@@ -39,6 +39,16 @@ function App() {
       return
     }
 
+    if(quantity.includes(".")) {
+      alert("Quantity must be a whole number")
+      return
+    }
+
+    if(quantity < 1) {
+      alert("Quantity must be greater than 0")
+      return
+    }
+
     document.getElementById('cartDiv').style.display = 'block'
     document.getElementById('cartEmpty').style.display = 'none'
     document.getElementById('checkoutBtn').style.display = 'block'
